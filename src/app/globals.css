@@ -1,26 +1,153 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
+@custom-variant dark (&:is(.dark *));
+
+/*
+  Español con Mate — design tokens.
+  Palette derived from the brand mark: warm cream base, charcoal-teal ink,
+  brand orange + brand turquoise as expressive accents, with darker
+  text-safe tonal variants (orange/turquoise fail WCAG AA as text color
+  on cream or white — see deep variants below).
+*/
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Brand palette */
+  --color-cream: #fff8f0;
+  --color-ink: #263b3c;
+  --color-ink-soft: #4d6163;
+  --color-orange: #ffa45b;
+  --color-orange-deep: #c9682b;
+  --color-turquoise: #18afba;
+  --color-turquoise-deep: #0e7a82;
+  --color-white: #ffffff;
+
+  /* Motion */
+  --ease-brand: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-fast: 200ms;
+  --duration-base: 450ms;
+  --duration-slow: 900ms;
+
+  /* Radius */
+  --radius: 1.25rem;
+
+  /* shadcn semantic mapping -> brand tokens */
+  --background: var(--color-cream);
+  --foreground: var(--color-ink);
+  --card: var(--color-white);
+  --card-foreground: var(--color-ink);
+  --popover: var(--color-white);
+  --popover-foreground: var(--color-ink);
+  --primary: var(--color-orange);
+  --primary-foreground: var(--color-ink);
+  --secondary: var(--color-white);
+  --secondary-foreground: var(--color-ink);
+  --muted: #f3ece1;
+  --muted-foreground: var(--color-ink-soft);
+  --accent: var(--color-turquoise);
+  --accent-foreground: var(--color-white);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: #e7dcc9;
+  --input: #e7dcc9;
+  --ring: var(--color-turquoise-deep);
+  --chart-1: var(--color-orange);
+  --chart-2: var(--color-turquoise);
+  --chart-3: var(--color-ink);
+  --chart-4: var(--color-orange-deep);
+  --chart-5: var(--color-turquoise-deep);
+  --sidebar: var(--color-cream);
+  --sidebar-foreground: var(--color-ink);
+  --sidebar-primary: var(--color-orange);
+  --sidebar-primary-foreground: var(--color-ink);
+  --sidebar-accent: var(--color-turquoise);
+  --sidebar-accent-foreground: var(--color-white);
+  --sidebar-border: #e7dcc9;
+  --sidebar-ring: var(--color-turquoise-deep);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-sans);
+  --font-display: var(--font-display);
   --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-display);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+
+  /* Brand color utilities: bg-cream, text-ink, border-turquoise, etc. */
+  --color-cream: var(--color-cream);
+  --color-ink: var(--color-ink);
+  --color-ink-soft: var(--color-ink-soft);
+  --color-orange: var(--color-orange);
+  --color-orange-deep: var(--color-orange-deep);
+  --color-turquoise: var(--color-turquoise);
+  --color-turquoise-deep: var(--color-turquoise-deep);
+  --color-white: var(--color-white);
+
+  --radius-sm: calc(var(--radius) * 0.5);
+  --radius-md: calc(var(--radius) * 0.7);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.3);
+  --radius-2xl: calc(var(--radius) * 1.7);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.8);
+
+  --ease-brand: var(--ease-brand);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-heading;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
